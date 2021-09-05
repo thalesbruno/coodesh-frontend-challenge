@@ -1,12 +1,12 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
 
 const App = () => (
-    <div className="App">
-      <header className="App-header">
-        Pharma-Inc
-      </header>
-    </div>
-  );
+  <div className="App">
+    <header className="App-header">
+      Pharma-Inc
+    </header>
+  </div>
+);
 
 export default App;
