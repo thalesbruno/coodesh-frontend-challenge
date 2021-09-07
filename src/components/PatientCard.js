@@ -56,6 +56,7 @@ const DialogTitle = withStyles(styles)((props) => {
 
 const PatientCard = ({ handleClose, open, patient }) => {
   const classes = useStyles();
+  const date = new Date(patient.dob.date);
 
   return (
     <Dialog
@@ -81,7 +82,7 @@ const PatientCard = ({ handleClose, open, patient }) => {
             </div>
             <div className={classes.field}>
               <CakeIcon />
-              <Typography>{patient.dob.date}</Typography>
+              <Typography>{`${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`}</Typography>
             </div>
             <div className={classes.field}>
               <PhoneIcon />

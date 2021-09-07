@@ -58,26 +58,29 @@ const PatientTableBody = ({ patients }) => {
   return (
     <>
       <TableBody>
-        {patients.map((patient) => (
-          <TableRow key={patient.login.uuid}>
-            <TableCell>{`${patient.name.first} ${patient.name.last}`}</TableCell>
-            <TableCell>{patient.gender}</TableCell>
-            <TableCell>{patient.dob.date}</TableCell>
-            <TableCell>
-              <IconButton
-                onClick={() => {
-                  setPatientToShow(patient);
-                  handleClickOpen();
-                }}
-                aria-label="Open"
-                color="primary"
-                size="small"
-              >
-                <OpenInNewIcon />
-              </IconButton>
-            </TableCell>
-          </TableRow>
-        ))}
+        {patients.map((patient) => {
+          const date = new Date(patient.dob.date);
+          return (
+            <TableRow key={patient.login.uuid}>
+              <TableCell>{`${patient.name.first} ${patient.name.last}`}</TableCell>
+              <TableCell>{patient.gender}</TableCell>
+              <TableCell>{`${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`}</TableCell>
+              <TableCell>
+                <IconButton
+                  onClick={() => {
+                    setPatientToShow(patient);
+                    handleClickOpen();
+                  }}
+                  aria-label="Open"
+                  color="primary"
+                  size="small"
+                >
+                  <OpenInNewIcon />
+                </IconButton>
+              </TableCell>
+            </TableRow>
+          );
+        })}
       </TableBody>
       {Object.keys(patientToShow).length > 0 && patientToShow.constructor === Object
         && <PatientCard handleClose={handleClose} open={open} patient={patientToShow} />}
