@@ -16,7 +16,7 @@ const SearchBar = () => {
         className={classes.searchInput}
         variant="outlined"
         type="search"
-        label="Search"
+        label="Search patient"
       />
     </>
   );

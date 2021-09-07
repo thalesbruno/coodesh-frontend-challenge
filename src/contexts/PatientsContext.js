@@ -9,8 +9,6 @@ export const PatientsProvider = ({ children }) => {
   useEffect(async () => {
     const res = await fetch('https://randomuser.me/api/?results=50');
     const data = await res.json();
-    // eslint-disable-next-line
-    console.log(data.results);
     setPatientData([...patientData, ...data.results]);
   }, []);
 
