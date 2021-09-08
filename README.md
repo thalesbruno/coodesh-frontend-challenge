@@ -1,6 +1,6 @@
 # Desafio Front-end da Coodesh
 
-Front-end do desafio da Coodesh feito com React.
+Desafio da Coodesh feito com React. Front-end para visualização das informações da base de pacientes da empresa Pharma Inc.
 
 ## Linguagens e bibliotecas
 
