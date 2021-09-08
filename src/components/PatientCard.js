@@ -18,7 +18,7 @@ import FingerprintIcon from '@material-ui/icons/Fingerprint';
 import ShareIcon from '@material-ui/icons/Share';
 import Avatar from '@material-ui/core/Avatar';
 import { Divider } from '@material-ui/core';
-import Link from './Link';
+import { NavLink } from 'react-router-dom';
 
 const styles = (theme) => ({
   closeButton: {
@@ -133,10 +133,16 @@ const PatientCard = ({ handleClose, open, patient }) => {
           alignItems="center"
         >
           <div xs={12} className={classes.field}>
-            <Link color="primary" underline="none" to={`/${patient.login.uuid}`}>
+            <NavLink
+              to={`/${patient.login.uuid}`}
+              style={{
+                textDecoration: 'none',
+                display: 'inherit',
+              }}
+            >
               <ShareIcon />
               <Typography>Share</Typography>
-            </Link>
+            </NavLink>
           </div>
         </Grid>
       </DialogContent>
@@ -167,10 +173,10 @@ PatientCard.propTypes = {
       city: PropTypes.string,
       state: PropTypes.string,
       country: PropTypes.string,
-      postcode: PropTypes.string,
+      postcode: PropTypes.number,
       street: PropTypes.shape({
         name: PropTypes.string,
-        number: PropTypes.string,
+        number: PropTypes.number,
       }),
     }),
     phone: PropTypes.string,
