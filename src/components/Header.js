@@ -4,7 +4,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import Link from './Link';
+import { NavLink } from 'react-router-dom';
 
 const Header = () => (
   <AppBar position="static">
@@ -14,7 +14,15 @@ const Header = () => (
       <Typography
         variant="h5"
       >
-        <Link underline="none" color="inherit" to="/">Pharma Inc</Link>
+        <NavLink
+          to="/"
+          style={{
+            textDecoration: 'none',
+            color: 'inherit',
+          }}
+        >
+          Pharma Inc
+        </NavLink>
       </Typography>
       <IconButton
         color="inherit"
