@@ -1,6 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
@@ -21,7 +18,6 @@ import FingerprintIcon from '@material-ui/icons/Fingerprint';
 import ShareIcon from '@material-ui/icons/Share';
 import Avatar from '@material-ui/core/Avatar';
 import { Divider } from '@material-ui/core';
-// import { Link } from 'react-router-dom';
 import Link from './Link';
 
 const styles = (theme) => ({
@@ -160,6 +156,32 @@ PatientCard.propTypes = {
       first: PropTypes.string,
       last: PropTypes.string,
       title: PropTypes.string,
+    }),
+    login: PropTypes.shape({
+      uuid: PropTypes.string,
+    }),
+    id: PropTypes.shape({
+      value: PropTypes.string,
+    }),
+    location: PropTypes.shape({
+      city: PropTypes.string,
+      state: PropTypes.string,
+      country: PropTypes.string,
+      postcode: PropTypes.string,
+      street: PropTypes.shape({
+        name: PropTypes.string,
+        number: PropTypes.string,
+      }),
+    }),
+    phone: PropTypes.string,
+    nat: PropTypes.string,
+    email: PropTypes.string,
+    gender: PropTypes.string,
+    dob: PropTypes.shape({
+      date: PropTypes.string,
+    }),
+    picture: PropTypes.shape({
+      medium: PropTypes.string,
     }),
   }),
 };

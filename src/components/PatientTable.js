@@ -1,7 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable max-len */
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -102,6 +98,7 @@ const PatientTableBody = ({ patients, patientFromUUID }) => {
 const PatientTable = () => {
   const classes = useStyles();
 
+  // eslint-disable-next-line no-unused-vars
   const [patientData, setPatientData] = useContext(PatientsContext);
   const [limit, setLimit] = useState(10);
   const { uuid } = useParams();
@@ -122,7 +119,10 @@ const PatientTable = () => {
       <TableContainer>
         <Table>
           <PatientTableHead />
-          <PatientTableBody patients={patientData.slice(0, limit)} patientFromUUID={patientFromUUID} />
+          <PatientTableBody
+            patients={patientData.slice(0, limit)}
+            patientFromUUID={patientFromUUID}
+          />
         </Table>
       </TableContainer>
       <Button
@@ -138,8 +138,13 @@ const PatientTable = () => {
   );
 };
 
+PatientTableBody.defaultProps = {
+  patientFromUUID: null,
+};
+
 PatientTableBody.propTypes = {
   patients: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  patientFromUUID: PatientCard.propTypes.patient,
 };
 
 export default PatientTable;
