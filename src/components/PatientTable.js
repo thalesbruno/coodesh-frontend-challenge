@@ -1,5 +1,9 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable max-len */
+/* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 import React, { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Table from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -42,7 +46,7 @@ const PatientTableHead = () => (
   </TableHead>
 );
 
-const PatientTableBody = ({ patients }) => {
+const PatientTableBody = ({ patients, patientFromUUID }) => {
   const [open, setOpen] = React.useState(false);
   const [patientToShow, setPatientToShow] = useState({});
 
@@ -54,6 +58,13 @@ const PatientTableBody = ({ patients }) => {
   };
 
   useEffect(() => {}, [patientToShow]);
+
+  useEffect(() => {
+    if (patientFromUUID) {
+      setPatientToShow(patientFromUUID);
+      setOpen(true);
+    }
+  }, [patientFromUUID]);
 
   return (
     <>
@@ -93,6 +104,9 @@ const PatientTable = () => {
 
   const [patientData, setPatientData] = useContext(PatientsContext);
   const [limit, setLimit] = useState(10);
+  const { uuid } = useParams();
+
+  const patientFromUUID = patientData.find((patient) => patient.login.uuid === uuid);
 
   const handleClick = (event) => {
     event.preventDefault();
@@ -108,7 +122,7 @@ const PatientTable = () => {
       <TableContainer>
         <Table>
           <PatientTableHead />
-          <PatientTableBody patients={patientData.slice(0, limit)} />
+          <PatientTableBody patients={patientData.slice(0, limit)} patientFromUUID={patientFromUUID} />
         </Table>
       </TableContainer>
       <Button

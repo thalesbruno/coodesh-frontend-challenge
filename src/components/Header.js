@@ -4,6 +4,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import Link from './Link';
 
 const Header = () => (
   <AppBar position="static">
@@ -13,7 +14,7 @@ const Header = () => (
       <Typography
         variant="h5"
       >
-        Pharma Inc
+        <Link underline="none" color="inherit" to="/">Pharma Inc</Link>
       </Typography>
       <IconButton
         color="inherit"
