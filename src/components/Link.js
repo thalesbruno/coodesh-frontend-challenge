@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import PropTypes from 'prop-types';
 import MuiLink from '@material-ui/core/Link';
@@ -19,8 +17,16 @@ const Link = ({
 
 );
 
+Link.defaultProps = {
+  color: 'primary',
+  underline: 'none',
+};
+
 Link.propTypes = {
   children: PropTypes.node.isRequired,
+  to: PropTypes.string.isRequired,
+  color: PropTypes.string,
+  underline: PropTypes.string,
 };
 
 export default Link;
