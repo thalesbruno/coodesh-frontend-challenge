@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React from 'react';
@@ -18,7 +19,10 @@ import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import FingerprintIcon from '@material-ui/icons/Fingerprint';
 import ShareIcon from '@material-ui/icons/Share';
+import Avatar from '@material-ui/core/Avatar';
 import { Divider } from '@material-ui/core';
+// import { Link } from 'react-router-dom';
+import Link from './Link';
 
 const styles = (theme) => ({
   closeButton: {
@@ -26,6 +30,16 @@ const styles = (theme) => ({
     right: theme.spacing(1),
     top: theme.spacing(1),
     color: theme.palette.grey[500],
+  },
+  avatar: {
+    width: '100px',
+    height: '100px',
+    position: 'absolute',
+    border: `solid 1px ${theme.palette.grey[500]}`,
+    top: '0',
+    marginTop: '-50px',
+    right: '40%',
+    zIndex: '3000 !important',
   },
 });
 
@@ -39,11 +53,12 @@ const useStyles = makeStyles(() => ({
 
 const DialogTitle = withStyles(styles)((props) => {
   const {
-    children, classes, onClose, ...other
+    children, url, classes, onClose, ...other
   } = props;
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <MuiDialogTitle disableTypography className={classes.root} {...other}>
+      <Avatar alt="Patient picture" src={url} className={classes.avatar} />
       <Typography variant="h6">{children}</Typography>
       {onClose ? (
         <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
@@ -66,7 +81,11 @@ const PatientCard = ({ handleClose, open, patient }) => {
       fullWidth
       maxWidth="sm"
     >
-      <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+      <DialogTitle
+        id="customized-dialog-title"
+        onClose={handleClose}
+        url={patient.picture.medium}
+      >
         {`${patient.name.title} ${patient.name.first} ${patient.name.last}`}
       </DialogTitle>
       <DialogContent dividers>
@@ -119,13 +138,19 @@ const PatientCard = ({ handleClose, open, patient }) => {
           alignItems="center"
         >
           <div xs={12} className={classes.field}>
-            <ShareIcon />
-            <Typography>Share</Typography>
+            <Link color="primary" underline="none" to={`/${patient.login.uuid}`}>
+              <ShareIcon />
+              <Typography>Share</Typography>
+            </Link>
           </div>
         </Grid>
       </DialogContent>
     </Dialog>
   );
+};
+
+PatientCard.defaultProps = {
+  patient: {},
 };
 
 PatientCard.propTypes = {
@@ -137,7 +162,7 @@ PatientCard.propTypes = {
       last: PropTypes.string,
       title: PropTypes.string,
     }),
-  }).isRequired,
+  }),
 };
 
 export default PatientCard;
