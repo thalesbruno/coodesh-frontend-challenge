@@ -34,12 +34,11 @@ const styles = (theme) => ({
   avatar: {
     width: '100px',
     height: '100px',
-    position: 'absolute',
-    border: `solid 1px ${theme.palette.grey[500]}`,
-    top: '0',
-    marginTop: '-50px',
-    right: '40%',
-    zIndex: '3000 !important',
+    // position: 'absolute',
+    // border: `solid 1px ${theme.palette.grey[500]}`,
+    // top: '0',
+    // marginTop: '-50px',
+    // right: '40%',
   },
 });
 
