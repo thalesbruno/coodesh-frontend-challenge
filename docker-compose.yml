@@ -1,6 +1,9 @@
 version: '3.7'
 services:
   pharma-ui:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.production
+    image: pharma-ui:prod
     ports:
-      - "3001:3000"
+      - "3001:80"
