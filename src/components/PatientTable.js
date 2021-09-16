@@ -89,6 +89,7 @@ const PatientTableBody = ({ patients, patientFromUUID }) => {
           );
         })}
       </TableBody>
+      {/* of patientToShow is not empty, show the PatientCart */}
       {Object.keys(patientToShow).length > 0 && patientToShow.constructor === Object
         && <PatientCard handleClose={handleClose} open={open} patient={patientToShow} />}
     </>

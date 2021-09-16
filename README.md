@@ -38,10 +38,13 @@ npm start
 
 
 ### Docker
-Na raiz do projeto, primeiro é necessário fazer o build da imagem docker
+Podemos subir tanto um ambiente de desenvolvimento, que provisiona um container e executa o `yarn start`, como um ambiente de produção onde é feito um `yarn build` do projeto e então um servidor `nginx` sobe servindo a aplicação.
 
+#### Desenvolvimento
+
+Na raiz do projeto, primeiro é necessário fazer o build da imagem docker.
 ```docker
-docker build . -t pharma-ui:dev
+docker build -f Dockerfile.development -t pharma-ui:dev .
 ```
 
 Então, é só subir o container
@@ -52,14 +55,29 @@ docker run -p 3001:3000 pharma-ui:dev
 
 Com o comando acima, a app estará disponível em `http://localhost:3001`
 
+#### Produção
+
+Na raiz do projeto, primeiro é necessário fazer o build da imagem docker.
+```docker
+docker build -f Dockerfile.production -t pharma-ui:dev .
+```
+
+Então, é só subir o container
+
+```docker
+docker run -p 3001:80 pharma-ui:prod
+```
+
+Com o comando acima, a app estará disponível em `http://localhost:3001`
+
 #### Docker-compose
-Com docker-compose, não é preciso executar o passo anterior, basta executar o comando seguinte e ele já irá fazer o build da imagem e subir a aplicação
+Para exemplificar também um ambiente criado usando o docker-compose, no caso apenas a versão de produção, basta executar o seguinte comando e ele já irá fazer o build da imagem docker e subir a aplicação
 
 ```docker
 docker-compose up
 ```
 
-Nas configurações atuais em `docker-compose.yaml`, a aplicação pode ser acessada então em `http://localhost:3001`
+Nas configurações atuais em `docker-compose.yml`, a aplicação pode ser acessada então em `http://localhost:3001`
 
 Após qualquer alteração no código-fonte do projeto, é preciso usar o parâmetro `--build` pra forçar o docker-compose a refazer a imagem base.
 
