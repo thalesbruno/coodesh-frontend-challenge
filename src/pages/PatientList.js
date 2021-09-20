@@ -1,17 +1,24 @@
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import SearchBar from '../components/SearchBar';
 import PatientTable from '../components/PatientTable';
-import { PatientsProvider } from '../contexts/PatientsContext';
+import { PatientsContext } from '../contexts/PatientsContext';
 
-const PatientList = () => (
-  <PatientsProvider>
+const PatientList = () => {
+  const [patientData] = useContext(PatientsContext);
+  const [patientList, setPatientList] = useState([]);
+
+  useEffect(() => {
+    setPatientList([...patientData]);
+  }, [patientData]);
+
+  return (
     <Grid
       container
       spacing={3}
     >
       <Grid item xs={12}>
-        <SearchBar />
+        <SearchBar setPatientList={setPatientList} />
       </Grid>
       <Grid
         item
@@ -20,10 +27,10 @@ const PatientList = () => (
         direction="column"
         alignItems="center"
       >
-        <PatientTable />
+        <PatientTable patientList={patientList} />
       </Grid>
     </Grid>
-  </PatientsProvider>
-);
+  );
+};
 
 export default PatientList;
