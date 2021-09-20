@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Table from '@material-ui/core/Table';
@@ -12,7 +12,6 @@ import IconButton from '@material-ui/core/IconButton';
 import AutorenewIcon from '@material-ui/icons/Autorenew';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import { makeStyles } from '@material-ui/core/styles';
-import { PatientsContext } from '../contexts/PatientsContext';
 import PatientCard from './PatientCard';
 
 const useStyles = makeStyles(() => ({
@@ -52,8 +51,6 @@ const PatientTableBody = ({ patients, patientFromUUID }) => {
   const handleClose = () => {
     setOpen(false);
   };
-
-  useEffect(() => {}, [patientToShow]);
 
   useEffect(() => {
     if (patientFromUUID) {
@@ -96,22 +93,20 @@ const PatientTableBody = ({ patients, patientFromUUID }) => {
   );
 };
 
-const PatientTable = () => {
+const PatientTable = ({ patientList }) => {
   const classes = useStyles();
 
-  // eslint-disable-next-line no-unused-vars
-  const [patientData, setPatientData] = useContext(PatientsContext);
   const [limit, setLimit] = useState(10);
   const { uuid } = useParams();
 
-  const patientFromUUID = patientData.find((patient) => patient.login.uuid === uuid);
+  const patientFromUUID = patientList.find((patient) => patient.login.uuid === uuid);
 
   const handleClick = (event) => {
     event.preventDefault();
-    if (limit + 10 < patientData.length) {
+    if (limit + 10 < patientList.length) {
       setLimit(limit + 10);
     } else {
-      setLimit(patientData.length);
+      setLimit(patientList.length);
     }
   };
 
@@ -121,22 +116,27 @@ const PatientTable = () => {
         <Table>
           <PatientTableHead />
           <PatientTableBody
-            patients={patientData.slice(0, limit)}
+            patients={patientList.slice(0, limit)}
             patientFromUUID={patientFromUUID}
           />
         </Table>
       </TableContainer>
+      {limit < patientList.length && (
       <Button
         onClick={handleClick}
         variant="contained"
         startIcon={<AutorenewIcon />}
         className={classes.button}
-        disabled={limit === patientData.length}
       >
         More
       </Button>
+      )}
     </>
   );
+};
+
+PatientTable.propTypes = {
+  patientList: PropTypes.arrayOf(PatientCard.propTypes.patient).isRequired,
 };
 
 PatientTableBody.defaultProps = {
@@ -144,7 +144,7 @@ PatientTableBody.defaultProps = {
 };
 
 PatientTableBody.propTypes = {
-  patients: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  patients: PropTypes.arrayOf(PatientCard.propTypes.patient).isRequired,
   patientFromUUID: PatientCard.propTypes.patient,
 };
 

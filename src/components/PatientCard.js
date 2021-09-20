@@ -173,7 +173,7 @@ PatientCard.propTypes = {
       city: PropTypes.string,
       state: PropTypes.string,
       country: PropTypes.string,
-      postcode: PropTypes.number,
+      postcode: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
       street: PropTypes.shape({
         name: PropTypes.string,
         number: PropTypes.number,
